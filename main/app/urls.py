@@ -4,7 +4,7 @@ from .views import allMedicines,deleteMedicine,search
 
 urlpatterns = [
 
-    path('', home, name='home'),
+    #path('', home, name='home'),
     #medicine 
     path('medicines/details/<int:id>/', medicineDetail, name='medicinedetails'),
     #path('medicines/', medicine, name='medicine'),
