@@ -1,0 +1,36 @@
+{% extends "navbar.html" %}
+{% block title %}Medicine Details{% endblock %}
+
+{% block main %}
+<div class="flex flex-row justify-between items-center">
+    <h2 class="text-xl font-bold mb-4 text-blue-500 mt-4">Medicine Details</h2>
+    <button class='bg-red-400 hover:bg-red-500 text-white font-bold py-2 px-4 rounded-lg shawdow-md'>
+        <a href="{%url 'deletemedicine' id=medicine.id%}">Delete</a>
+    </button>
+</div>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-blue-100 border rounded-lg">
+            <thead>
+                <tr class="bg-blue-500 text-white text-left"> 
+                    <th class="py-2 px-4 border-b text-left">Name</th>
+                    <th class="py-2 px-4 border-b text-left">Brand</th>
+                    <th class="py-2 px-4 border-b text-left">Description</th>
+                    <th class="py-2 px-4 border-b text-left">Quantity</th>
+                    <th class="py-2 px-4 border-b text-left">Price</th>
+                </tr>
+            </thead>
+            <tbody>
+               
+                <tr class="text-gray-700 hover:bg-blue-200 text-left">                
+                    <td class="py-2 px-4 border-b text-left">{{ medicine.name }}</td>
+                    <td class="py-2 px-4 border-b text-left">{{ medicine.brand }}</td>
+                    <td class="py-2 px-4 border-b text-left">{{ medicine.description }}</td>
+                    <td class="py-2 px-4 border-b text-left">{{ medicine.quantity_in_stock }}</td>
+                    <td class="py-2 px-4 border-b text-left">{{ medicine.price }}</td>
+                </tr>
+                
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

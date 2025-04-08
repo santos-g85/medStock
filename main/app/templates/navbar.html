@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Navbar{% endblock %}
+
+{% block content %}
+<div class="flex  max-h-full p-4">
+  <aside class="w-64 bg-sky-200 p-6 rounded-lg shadow-lg">
+    <nav class="flex flex-col space-y-4">
+      <div class="flex flex-col space-y-4 relative">
+        <div>
+          <div class="relative">
+            <a  class="text-lg hover:underline" id="medicine-link">Medicine</a>
+            <div id="medicine-dropdown" class="hidden absolute bg-inherit">
+              <a href="{% url 'availablemedicine' %}" class="block px-4 py-2 text-lg hover:underline">Available Medicine</a>
+              <a href="{% url 'allmedicines' %}" class="block px-4 py-2 text-lg hover:underline">All Medicine</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col space-y-4" id="below">
+          <a href="#" class="text-lg hover:underline">Suppliers</a>
+          <a href="#" class="text-lg hover:underline">Purchases</a>
+          <a href="#" class="text-lg hover:underline">Sales</a>
+          <a href="#" class="text-lg hover:underline">Customers</a>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <main class="flex-1 p-6">
+    {% block main %}{% endblock %}
+  </main>
+</div>
+
+{% block scripts %}
+<script>
+  const medicineLink = document.getElementById('medicine-link');
+  const dropdown = document.getElementById('medicine-dropdown');
+  const below = document.getElementById('below');
+
+  medicineLink.addEventListener('click', function(e) {
+    e.preventDefault();
+    dropdown.classList.toggle('hidden');
+
+    if (!dropdown.classList.contains('hidden')) {
+      below.classList.add('mt-20'); 
+    } else {
+      below.classList.remove('mt-20');
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (!medicineLink.contains(e.target) && !dropdown.contains(e.target)) {
+      dropdown.classList.add('hidden');
+      below.classList.remove('mt-20');
+    }
+  });
+</script>
+
+{% endblock %}
+
+{% endblock %}

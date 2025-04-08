@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mx-auto p-6">
+  <h2 class="text-2xl font-semibold text-center text-blue-600 mb-4">Login</h2>
+
+  <div class="flex flex-col w-96 items-center justify-center mx-auto border-2 border-gray-300 rounded-lg p-6 shadow-lg bg-sky-200">
+
+    <!-- Show JS popup alerts for messages -->
+    {% if messages %}
+      <script>
+        window.onload = function () {
+          {% for message in messages %}
+            alert("{{ message|escapejs }}");
+          {% endfor %}
+        };
+      </script>
+    {% endif %}
+
+    <!-- Optional inline fallback (if JS is disabled) -->
+    <noscript>
+      <div class="mb-4">
+        {% for message in messages %}
+          <p class="bg-red-500 text-white p-2 rounded-md mb-2">{{ message }}</p>
+        {% endfor %}
+      </div>
+    </noscript>
+
+    <!-- Login Form -->
+    <form
+      action="{% url 'login' %}"
+      method="POST"
+      enctype="multipart/form-data"
+      class="text-center w-full"
+    >
+      {% csrf_token %}
+      <label for="username" class="block text-left mb-1 font-medium">Username</label>
+      <input
+        type="text"
+        id="username"
+        name="username"
+        placeholder="Enter username"
+        class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+        required
+      />
+
+      <label for="password" class="block text-left mb-1 font-medium">Password</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="********"
+        class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+        required
+      />
+
+      <button
+        type="submit"
+        class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 w-full"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}

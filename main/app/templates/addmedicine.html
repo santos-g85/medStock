@@ -1,0 +1,71 @@
+{% extends "navbar.html" %} {% block title %}Add Medicines{% endblock %} 
+{% block main %}  
+<div class="container mx-auto p-6">
+    <h2 class="text-2xl font-semibold text-center text-blue-600 mb-4">
+      Add Medicines
+    </h2>
+    
+    <div
+      class="flex flex-col w-96 items-center justify-center mx-auto border-2 border-gray-300 rounded-lg p-6 shadow-lg bg-sky-200"
+    >
+    {% if messages %}
+    <div class="mb-4">
+      {% for message in messages %}
+        <div class="bg-green-500 text-white p-2 rounded-md mb-2">{{ message }}</div>
+      {% endfor %}
+    </div>
+    {% endif %}
+      <form
+        action="{% url 'addmedicine' %}"
+        method="POST"
+        enctype="multipart/form-data"
+        class="text-center"
+      >
+      {% csrf_token %}
+        <label for="name" name="name">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Name"
+          class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+        />
+  
+        <label for="brand" name="brand">Brand</label>
+        <input
+          type="text"
+          id="brand"
+          name="brand"
+          placeholder="Brand"
+          class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+        />
+        <label for="description" name="description">Description</label>
+        <textarea
+        id="description"
+          name="description"
+          placeholder="Description"
+          class="border border-gray-300 rounded-lg p-2 mb-4 w-full h-24">
+          
+        </textarea>
+        
+        <label for="supplier" name="supplier">Supplier</label>
+        <select
+          id="supplier"
+          name="supplier"
+          class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+        >{% for supplier in suppliers %}
+          <option value="{{ supplier.id }}">{{ supplier.name }}</option>
+        {% endfor %}
+        </select>
+        
+        <button
+          type="submit"
+          class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600">
+        Add Medicine
+        </button>
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+
