@@ -1,0 +1,47 @@
+{% extends "navbar.html" %}
+{% block title %}Top Navbar{% endblock %}
+
+{% block main %}
+  <div class="flex justify-between items-center space-x-8">
+
+    <h2 class="text-2xl font-bold">
+      <a href="{% url 'home' %}">MedStock</a>
+    </h2>
+
+    <form action="{% url 'search' %}" method="GET" id="search-form" class="flex items-center space-x-2 px-4 py-2 border border-gray-300 rounded-lg">
+      <input
+        type="text"
+        name="q"
+        id="search-input"
+        placeholder="Search..."
+        class="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+        value="{{ request.GET.q }}"
+      />
+      <button
+        type="submit"
+        class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+      >
+        Search
+      </button>
+    </form>
+
+    <div class="flex space-x-6 items-center">
+      <a class="text-lg hover:underline text-red-600">Logout</a>
+    </div>
+  </div>
+
+ 
+  {% if results %}
+    <div class="mt-4 bg-white shadow-lg rounded-lg p-4 w-full">
+      <h3 class="text-xl font-semibold mb-2">Search Results:</h3>
+      <ul class="list-disc pl-5 space-y-1">
+        {% for medicine in results %}
+          <li>{{ medicine.name }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% elif request.GET.q %}
+    <div class="mt-4 text-gray-600">No results found for "{{ request.GET.q }}"</div>
+  {% endif %}
+
+{% endblock %}

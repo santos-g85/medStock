@@ -1,13 +1,10 @@
 from django.urls import path
 from .views import home, medicineDetail,addMedicine,availableMedicine
-from .views import allMedicines,deleteMedicine,userLogin,userLogOut,search
+from .views import allMedicines,deleteMedicine,search
 
 urlpatterns = [
 
-     path('', userLogin, name='login'),
-    path('login/', userLogin, name='login'),
-    path('logout/', userLogOut, name='logout'),
-    path('home/', home, name='home'),
+    path('', home, name='home'),
     #medicine 
     path('medicines/details/<int:id>/', medicineDetail, name='medicinedetails'),
     #path('medicines/', medicine, name='medicine'),
