@@ -16,8 +16,12 @@ def user_login(request):
         if(user):
             login(request,user)
             messages.success(request,"login successfull !")
-            return redirect('app/home')
+            return redirect('dashboard')
         else:
             messages.error(request,"no user")
             
     return render(request,'login.html',{})
+
+def user_logout(request):
+    logout(request)
+    return redirect('userlogin')

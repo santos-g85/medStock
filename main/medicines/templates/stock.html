@@ -1,0 +1,78 @@
+{% extends 'navbar.html' %}
+{%block title%}medicine {%endblock%}
+{% block main %}
+<div class="container mx-auto p-3">
+  
+  <div class="flex flex-col">
+
+    <h2 class="text-2xl font-bold">Stock</h2>
+ 
+ 
+  <div class="flex flex-col md:flex-row-reverse md:items-center md:justify-end gap-2"> 
+      <form method="get" action="{% url 'stocksearch' %}" class="px-2 py-2 w-full">
+        <div class="flex">
+          <input type="text" name="q" placeholder="Search by name" class="flex-grow border border-gray-300 p-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold px-4 rounded-r-lg">
+            Search
+          </button>
+        </div>
+      </form>
+  </div>
+
+</div>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white shadow-md rounded-lg">
+      <thead class="bg-gray-100">
+        <tr>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Name</th>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Brand</th>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Price</th>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Quantity</th>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Expiry</th>
+          <th class="py-3 px-4 text-left text-sm font-medium text-gray-600">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for med in stock %}
+        <tr class="border-t">
+          <td class="py-3 px-4">{{ med.name }}</td>
+          <td class="py-3 px-4">{{ med.brand }}</td>
+          <td class="py-3 px-4">{{ med.price }}</td>
+          <td class="py-3 px-4">{{ med.quantity_in_stock }}</td>
+          <td class="py-3 px-4 {% if med.is_expired %}text-red-500{% else %}text-gray-700{% endif %}">
+            {{ med.expiry_date }}
+          </td>
+          <td class="py-3 px-4 space-x-2">
+            <a  class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">Edit</a>
+            <a  class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">Delete</a>
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="6" class="py-3 px-4 text-center text-gray-500">No stock found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="flex justify-center items-center space-x-2 fixed bottom-0 left-0 right-0 py-3 shadow-lg ">
+    
+ {%if stock%}
+ <a href="?page=1" class="bg-white text-gray-700 hover:bg-blue-500 hover:text-white rounded-md transition duration-300">&laquo; First</a>
+ <a href="?page={% if stock.has_previous %}{{stock.previous_page_number}} {%endif%}" class="bg-white text-gray-700 hover:bg-blue-500 hover:text-white  rounded-md transition duration-300">Previous</a>
+ 
+ <span class="pagination-info text-md text-gray-700">
+  Page {{ stock.number }} of {{ stock.paginator.num_pages }}
+</span>
+
+<a href="?page={% if stock.has_next %}{{ stock.next_page_number }}{% endif %}" class="bg-white text-gray-700 hover:bg-blue-500 hover:text-white  rounded-md transition duration-300">Next</a>
+<a href="?page={{ stock.paginator.num_pages }}" class="bg-white text-gray-700 hover:bg-blue-500 hover:text-white rounded-md transition duration-300">Last &raquo;</a>
+
+ {%endif%}
+</div>
+  
+  
+{% endblock %}

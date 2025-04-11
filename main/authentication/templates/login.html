@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}MedStock{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 font-sans">
+    <div class="flex min-h-screen p-4">
+      <div class="container mx-auto p-6">
+        <h2 class="text-2xl font-semibold text-center text-blue-600 mb-4">login</h2>
+      
+        {%if messages %}
+        <p>{{message}}</p>
+        {%endif%}
+      
+        <div
+          class="flex flex-col w-96 items-center justify-center mx-auto border-2 border-gray-300 rounded-lg p-6 shadow-lg bg-white"
+        >
+          {% if messages %}
+          <div class="mb-4">
+            {% for message in messages %}
+            <div class="bg-green-500 text-white p-2 rounded-md mb-2">
+              {{ message }}
+            </div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <form
+            action="{% url 'userlogin' %}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="text-center"
+          >
+          {% csrf_token %}
+            <label for="name" name="name">username</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="username"
+              class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+            />
+      
+            <label for="brand" name="brand">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="password"
+              class="border border-gray-300 rounded-lg p-2 mb-4 w-full"
+            />
+      
+            <button
+              type="submit"
+              class="bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600"
+            >
+              login
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
