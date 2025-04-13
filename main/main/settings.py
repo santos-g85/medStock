@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-we_!@rz-@fmv#uqon)!-s1@0i_v&pnxt!+t_x-!uy&nr@66k@z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['medstock-ct30.onrender.com']
 
 
 # Application definition
@@ -184,3 +184,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
     },
 }
 """
+
+
+CSRF_TRUSTED_ORIGINS = ['https://medstock-ct30.onrender.com']
+
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
