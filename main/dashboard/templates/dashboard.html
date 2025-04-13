@@ -1,31 +1,52 @@
 {% extends 'navbar.html' %}
-{%block title%}dashboard {%endblock%}
+{% block title %}Dashboard{% endblock %}
+
 {% block main %}
-<div class="container mx-auto p-4">
-<h1 class="text-2xl font-semibold mb-4">Dashboard</h1>
+<div class="container">
+  <h1 class="h4 mb-4">Dashboard</h1>
 
-<div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-    <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm text-gray-500">Total Medicines</h3>
-        <p class="text-2xl font-bold text-blue-600">{{ medicine.name__count}}</p>
+  <!-- Stat Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h6 class="text-muted">Total Medicines</h6>
+          <h3 class="text-primary">{{ medicine.name__count }}</h3>
+        </div>
+      </div>
     </div>
-    <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm text-gray-500">Low Stock</h3>
-        <p class="text-2xl font-bold text-orange-500">{{ low_stock }}</p>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h6 class="text-muted">Low Stock</h6>
+          <h3 class="text-warning">{{ low_stock }}</h3>
+        </div>
+      </div>
     </div>
-    <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm text-gray-500">Expiring Soon</h3>
-        <p class="text-2xl font-bold text-red-500">{{ expiring_soon }}</p>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h6 class="text-muted">Expiring Soon</h6>
+          <h3 class="text-danger">{{ expiring_soon }}</h3>
+        </div>
+      </div>
     </div>
-    <div class="bg-white p-4 rounded-2xl shadow text-center">
-        <h3 class="text-sm text-gray-500">Today’s Sales</h3>
-        <p class="text-2xl font-bold text-green-600">{{ todays_sales }}</p>
+    <div class="col-md-3">
+      <div class="card text-center shadow-sm">
+        <div class="card-body">
+          <h6 class="text-muted">Today’s Sales</h6>
+          <h3 class="text-success">{{ todays_sales }}</h3>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 
-<div class="bg-white p-4 rounded-2xl shadow">
-    <h3 class="text-lg font-semibold mb-2">(Chart Here)</h3>
-    <div class="text-gray-400 text-sm"> Chart</div>
-</div>
+  <!-- Chart Section -->
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h5 class="card-title">Sales Overview</h5>
+      <div class="text-muted">Chart Placeholder</div>
+    </div>
+  </div>
 </div>
 {% endblock %}

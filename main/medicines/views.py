@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
 
-pagination_num:int=2
+pagination_num:int=5
 # Create your views here.
 
 @login_required

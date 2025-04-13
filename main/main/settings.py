@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 load_dotenv()
 
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     'dashboard',
     'authentication',
     'medicines',
+    'bootstrap5',
 ]
 
 MIDDLEWARE = [
@@ -87,6 +89,19 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.getenv('dbNAME'),  
+#         'USER': 'admin',     
+#         'PASSWORD': 'admin',  
+#         'HOST': 'localhost',   
+#         'PORT': '5432',        
+#     }
+# }
+
+#DATABASES["default"]=dj_database_url.parse(" ")
+    
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators

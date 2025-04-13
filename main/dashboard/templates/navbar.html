@@ -1,48 +1,46 @@
 {% extends 'base.html' %}
 <title>{% block title %}Navbar{% endblock %}</title>
+
 {% block content %}
-<div class="flex min-h-screen flex-col md:flex-row p-3">
-  
-  <header class="flex justify-between items-center bg-white shadow-md p-4 md:hidden rounded-lg">
-    <h2 class="text-xl font-bold">MedStock</h2>
-    <button id="menu-toggle" class="text-xl focus:outline-none">
-      ☰
-    </button>
-  </header>
-
- 
-  <aside id="sidebar" class="w-full md:w-64 bg-white shadow p-4 rounded-lg md:block hidden">
-    <a href="{% url 'dashboard' %}" class="flex items-center justify-between mb-6 hidden md:block" >
-      <h2 class="text-xl font-bold">MedStock</h2>
-    </a>
-    <nav class="space-y-4 text-gray-700">
-      <a href="{% url 'dashboard' %}" class="block hover:text-blue-600">Dashboard</a>
-      <a href="{% url 'stock' %}" class="block hover:text-blue-600">Stock</a>
-      <a href="{% url 'medicine' %}" class="block hover:text-blue-600">Medicines</a>
-      <a class="block hover:text-blue-600">Purchases</a>
-      <a class="block hover:text-blue-600">Sales</a>
-      <a class="block hover:text-blue-600">Reports</a>
-      <a class="block hover:text-blue-600">Suppliers</a>
-      {% if user.is_authenticated %}
-        <a href="{% url 'userlogout' %}" class="block hover:text-red-600">Logout</a>
-      {% endif %}
+<div class="container-fluid">
+  <div class="row">
+    <!-- Mobile Header -->
+    <nav class="d-md-none navbar navbar-light bg-white shadow-sm mb-3">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">MedStock</span>
+        <button class="btn btn-outline-secondary" type="button" id="menu-toggle">☰</button>
+      </div>
     </nav>
-  </aside>
 
-  <!-- Main Content -->
-  <main class="flex-1 p-3">
-    {% block main %}
-    {% endblock %}
-  </main>
+    <!-- Sidebar -->
+    <div class="col-md-3 col-lg-2 bg-white shadow-sm d-none d-md-block sidebar p-3" id="sidebar">
+      <h4 class="mb-4">MedStock</h4>
+      <nav class="nav flex-column">
+        <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
+        <a href="{% url 'stock' %}" class="nav-link">Stock</a>
+        <a href="{% url 'medicine' %}" class="nav-link">Medicines</a>
+        <a class="nav-link">Purchases</a>
+        <a class="nav-link">Sales</a>
+        <a class="nav-link">Reports</a>
+        <a class="nav-link">Suppliers</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'userlogout' %}" class="nav-link text-danger">Logout</a>
+        {% endif %}
+      </nav>
+    </div>
+
+    <!-- Main Content -->
+    <main class="col-md-9 col-lg-10 p-4">
+      {% block main %}
+      {% endblock %}
+    </main>
+  </div>
 </div>
 
 <script>
-  const toggleBtn = document.getElementById('menu-toggle');
-  const sidebar = document.getElementById('sidebar');
-
-  toggleBtn?.addEventListener('click', () => {
-    sidebar.classList.toggle('hidden');
+  document.getElementById('menu-toggle')?.addEventListener('click', function () {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('d-none');
   });
-
 </script>
 {% endblock %}
