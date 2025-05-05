@@ -2,8 +2,8 @@ from .models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib import messages
 from django.shortcuts import render, redirect
+import os
 # Create your views here.
-
 def user_login(request):
 
     if request.method == "POST":
