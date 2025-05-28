@@ -8,7 +8,7 @@
 
     <div class="d-flex flex-column flex-md-row gap-2 w-100 w-md-auto">
       <!-- Add Button -->
-      <a href="#" class="btn btn-success d-flex align-items-center justify-content-center">
+      <a href="{%url 'addMedicine' %}" class="btn btn-success d-flex align-items-center justify-content-center">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" class="me-2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
         </svg>
@@ -47,8 +47,8 @@
             {{ med.expiry_date }}
           </td>
           <td>
-            <a href="#" class="btn btn-sm btn-primary">Edit</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
+            <a href="{% url 'editMedicine' med.id %}" class="btn btn-sm btn-primary">Edit</a>
+            <a href="{% url 'deleteMedicine' med.id %}" class="btn btn-sm btn-danger">Delete</a>
           </td>
         </tr>
         {% empty %}

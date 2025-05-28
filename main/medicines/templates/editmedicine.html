@@ -1,0 +1,15 @@
+{% extends 'navbar.html' %}
+{% block main %}
+<div class="container py-4">
+
+<h2>Edit Medicine - {{ medicine.name }}</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a href="{% url 'medicine' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+
+</div>
+{% endblock %}
+

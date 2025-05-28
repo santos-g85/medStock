@@ -1,8 +1,12 @@
-from django.shortcuts import render
-from dashboard.models import Medicine
+from django.shortcuts import render,redirect, get_object_or_404
+from dashboard.models import Medicine,Supplier
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib import messages
+from .forms import MedicineForm  
+from django.http import HttpResponseNotFound
+
 
 pagination_num:int=5
 # Create your views here.
@@ -72,3 +76,87 @@ def stockSearch(request):
         context["message"] = "No items found!"
 
     return render(request, 'stock.html', context)
+
+
+@login_required
+def addMedicine(request):
+    suppliers_list = Supplier.objects.all()
+
+    if request.method == 'POST':
+        form = MedicineForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            brand = form.cleaned_data["brand"]
+            price = form.cleaned_data["price"]
+            quantity_in_stock = form.cleaned_data["quantity_in_stock"]
+            supplier = form.cleaned_data["suppliers"]
+
+            if Medicine.objects.filter(name=name).exists():
+                messages.error(request, "Medicine already exists!")
+            else:
+                Medicine.objects.create(
+                    name=name,
+                    brand=brand,
+                    price=price,
+                    quantity_in_stock=quantity_in_stock,
+                    suppliers=supplier
+                )
+                messages.success(request, "Medicine added successfully!")
+                return redirect('medicine')  
+    else:
+        form = MedicineForm()
+
+    return render(request, 'addmedicine.html', {'form': form, 'suppliers': suppliers_list})
+   
+
+@login_required
+def deleteMedicine(request, id):
+    try:
+        medicine = get_object_or_404(Medicine, pk=id)
+        medicine.delete()
+        messages.success(request, "Medicine deleted successfully.")
+    except Exception as e:
+        messages.error(request, "An error occurred while deleting medicine.")
+
+    return redirect('medicine')
+
+
+
+# def deleteStock(request, id):
+#     try:
+#         medicine = get_object_or_404(Medicine, pk=id)
+#         medicine.delete()
+#         messages.success(request, "Stock deleted successfully.")
+#     except Exception as e:
+#         messages.error(request, "An error occurred while deleting Stock.")
+
+#     return render('deletemedicine.html',{'name':10})
+
+
+@login_required
+def deleteStock(request, id):
+    try:
+        medicine = Medicine.objects.get(pk=id)
+    except Medicine.DoesNotExist:
+        return HttpResponseNotFound("Medicine not found.")
+
+    if request.method == 'POST':
+        medicine.delete()
+        messages.success(request, "Stock deleted successfully.")
+        return redirect('stock')
+
+    return render(request, 'deletemedicine.html', {'medicine': medicine})
+
+@login_required
+def editMedicine(request, id):
+    medicine = get_object_or_404(Medicine, pk=id)
+
+    if request.method == 'POST':
+        form = MedicineForm(request.POST, instance=medicine)
+        if form.is_valid():
+            form.save()
+            return redirect('stock')  
+    else:
+        form = MedicineForm(instance=medicine)
+
+    return render(request, 'editmedicine.html', {'form': form, 'medicine': medicine})

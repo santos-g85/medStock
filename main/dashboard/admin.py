@@ -4,7 +4,7 @@ from .models import Medicine,Supplier
 
 @admin.register(Medicine)
 class MedicineAdmin(admin.ModelAdmin):
-    list_display = ('name','description','quantity_in_stock') 
+    list_display = ('name','description','quantity_in_stock','price') 
     search_fields = ('name','quantity_in_stock')  
     list_filter = ('name', 'quantity_in_stock')  
     list_per_page = 10

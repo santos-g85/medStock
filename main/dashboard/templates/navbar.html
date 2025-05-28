@@ -18,10 +18,10 @@
         <a href="{% url 'dashboard' %}" class="nav-link">Dashboard</a>
         <a href="{% url 'stock' %}" class="nav-link">Stock</a>
         <a href="{% url 'medicine' %}" class="nav-link">Medicines</a>
+        <a class="nav-link">Suppliers</a>
         <a class="nav-link">Purchases</a>
         <a class="nav-link">Sales</a>
         <a class="nav-link">Reports</a>
-        <a class="nav-link">Suppliers</a>
         {% if user.is_authenticated %}
         <a href="{% url 'userlogout' %}" class="nav-link text-danger">Logout</a>
         {% endif %}
